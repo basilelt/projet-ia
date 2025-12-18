@@ -5,17 +5,18 @@ import random as rnd
 
 
 ## Extrait du TP2 - Morpion
-def max_value_ab(board, turn, alpha, beta, depth):
+def max_value_ab(board, turn, alpha, beta, depth, max_player):
     if board.check_victory():
         return 1
     if depth == 0 or turn > 42 or not board.get_possible_moves():
         return 0
     possible_moves = board.get_possible_moves()
-    value = -2
+    value = float('-inf')
+    opponent = 3 - max_player
     for move in possible_moves:
         updated_board = board.copy()
-        updated_board.add_disk(move, turn % 2 + 1, update_display=False)
-        value = max(value, min_value_ab(updated_board, turn + 1, alpha, beta, depth-1))
+        updated_board.add_disk(move, max_player, update_display=False)
+        value = max(value, min_value_ab(updated_board, turn + 1, alpha, beta, depth-1, max_player))
         if value >= beta:
             return value
         alpha = max(alpha, value)
@@ -23,17 +24,18 @@ def max_value_ab(board, turn, alpha, beta, depth):
 
 
 ## Extrait du TP2 - Morpion
-def min_value_ab(board, turn, alpha, beta, depth):
+def min_value_ab(board, turn, alpha, beta, depth, max_player):
     if board.check_victory():
         return -1
     if depth == 0 or turn > 42 or not board.get_possible_moves():
         return 0
     possible_moves = board.get_possible_moves()
-    value = 2
+    value = float('inf')
+    opponent = 3 - max_player
     for move in possible_moves:
         updated_board = board.copy()
-        updated_board.add_disk(move, turn % 2 + 1, update_display=False)
-        value = min(value, max_value_ab(updated_board, turn + 1, alpha, beta, depth-1))
+        updated_board.add_disk(move, opponent, update_display=False)
+        value = min(value, max_value_ab(updated_board, turn + 1, alpha, beta, depth-1, max_player))
         if value <= alpha:
             return value
         beta = min(beta, value)
@@ -50,13 +52,13 @@ def alpha_beta_decision(board, turn, ai_level, queue, max_player):
 
     possible_moves = board.get_possible_moves()
     best_move = possible_moves[0]
-    best_value = -2
-    alpha = -2
-    beta = 2
+    best_value = float('-inf')
+    alpha = float('-inf')
+    beta = float('inf')
     for move in possible_moves:
         updated_board = board.copy()
-        updated_board.add_disk(move, turn % 2 + 1, update_display=False)
-        value = min_value_ab(updated_board, turn + 1, alpha, beta, ai_level)
+        updated_board.add_disk(move, max_player, update_display=False)
+        value = min_value_ab(updated_board, turn + 1, alpha, beta, ai_level, max_player)
         if value > best_value:
             best_value = value
             best_move = move
