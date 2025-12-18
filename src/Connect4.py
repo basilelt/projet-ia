@@ -4,12 +4,63 @@ from Board import Board
 import random as rnd
 
 
+## Extrait du TP2 - Morpion
+def max_value_ab(board, turn, alpha, beta):
+    if board.check_victory(update_display=False):
+        return -1
+    if turn > 9:
+        return 0
+    possible_moves = board.get_possible_moves()
+    value = -2
+    for move in possible_moves:
+        updated_board = board.copy()
+        updated_board.grid[move[0]][move[1]] = turn % 2 + 1
+        value = max(value, min_value_ab(updated_board, turn + 1, alpha, beta))
+        if value >= beta:
+            return value
+        alpha = max(alpha, value)
+    return value
+
+
+## Extrait du TP2 - Morpion
+def min_value_ab(board, turn, alpha, beta):
+    if board.check_victory(update_display=False):
+        return 1
+    if turn > 9:
+        return 0
+    possible_moves = board.get_possible_moves()
+    value = 2
+    for move in possible_moves:
+        updated_board = board.copy()
+        updated_board.grid[move[0]][move[1]] = turn % 2 + 1
+        value = min(value, max_value_ab(updated_board, turn + 1, alpha, beta))
+        if value <= alpha:
+            return value
+        beta = min(beta, value)
+    return value
+
+
+## Extrait du TP2 - Morpion
 def alpha_beta_decision(board, turn, ai_level, queue, max_player):
-    # random move (to modify)
-    queue.put(
-        board.get_possible_moves()[rnd.randint(0, len(board.get_possible_moves()) - 1)]
-    )
+    # # random move (to modify)
+    # queue.put(
+    #     board.get_possible_moves()[rnd.randint(0, len(board.get_possible_moves()) - 1)]
+    # )
     # TODO
+
+    possible_moves = board.get_possible_moves()
+    best_move = possible_moves[0]
+    best_value = -2
+    alpha = -2
+    beta = 2
+    for move in possible_moves:
+        updated_board = board.copy()
+        updated_board.grid[move[0]][move[1]] = turn % 2 + 1
+        value = min_value_ab(updated_board, turn + 1, alpha, beta)
+        if value > best_value:
+            best_value = value
+            best_move = move
+    queue.put(best_move)
 
 
 class Connect4:
