@@ -1,15 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-import random as rnd
 
 from Connect4 import Connect4
-
-
-def alpha_beta_decision(board, turn, ai_level, queue, max_player):
-    # random move (to modify)
-    queue.put(
-        board.get_possible_moves()[rnd.randint(0, len(board.get_possible_moves()) - 1)]
-    )
 
 
 if __name__ == "__main__":
@@ -19,8 +11,6 @@ if __name__ == "__main__":
     player_type = ["human"]
     for i in range(42):
         player_type.append("AI: alpha-beta level " + str(i + 1))
-
-    game = Connect4()
 
     # Graphical settings
     width = 700
@@ -66,6 +56,8 @@ if __name__ == "__main__":
     combobox_player1.current(0)
     combobox_player2["values"] = player_type
     combobox_player2.current(6)
+
+    game = Connect4(information, canvas1, combobox_player1, combobox_player2, row_width, window, disks, disk_color)
 
     button2 = tk.Button(window, text="New game", command=game.launch)
     button2.grid(row=4, column=0)
