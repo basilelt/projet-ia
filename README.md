@@ -24,7 +24,7 @@ A Python implementation of the classic Connect 4 game with a graphical user inte
    env LDFLAGS="-L$(brew --prefix openssl@1.1)/lib -L$(brew --prefix readline)/lib -L$(brew --prefix sqlite3)/lib -L$(brew --prefix xz)/lib -L$(brew --prefix zlib)/lib -L$(brew --prefix tcl-tk)/lib" \
    CPPFLAGS="-I$(brew --prefix openssl@1.1)/include -I$(brew --prefix readline)/include -I$(brew --prefix sqlite3)/include -I$(brew --prefix xz)/include -I$(brew --prefix zlib)/include -I$(brew --prefix tcl-tk)/include" \
    PKG_CONFIG_PATH="$(brew --prefix openssl@1.1)/lib/pkgconfig:$(brew --prefix readline)/lib/pkgconfig:$(brew --prefix sqlite3)/lib/pkgconfig:$(brew --prefix xz)/lib/pkgconfig:$(brew --prefix zlib)/lib/pkgconfig:$(brew --prefix tcl-tk)/lib/pkgconfig" \
-   pyenv install 3.14.0
+   pyenv install 3.14.0 # For macOS users
 
    python -m venv .venv
 
@@ -40,6 +40,7 @@ A Python implementation of the classic Connect 4 game with a graphical user inte
 To start the Connect 4 game:
 
 ```bash
+source .venv/bin/activate  # Activate the virtual environment
 python src/main.py
 ```
 
@@ -47,7 +48,7 @@ python src/main.py
 
 1. Select player types for Player 1 and Player 2:
    - **Human**: Manual player input
-   - **AI: alpha-beta level X**: AI opponent with increasing difficulty (1-42)
+   - **AI: alpha-beta depth X**: AI opponent with increasing depth (1-42)
 
 2. Click the "New game" button to start.
 
