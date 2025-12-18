@@ -26,6 +26,8 @@ A Python implementation of the classic Connect 4 game with a graphical user inte
    PKG_CONFIG_PATH="$(brew --prefix openssl@1.1)/lib/pkgconfig:$(brew --prefix readline)/lib/pkgconfig:$(brew --prefix sqlite3)/lib/pkgconfig:$(brew --prefix xz)/lib/pkgconfig:$(brew --prefix zlib)/lib/pkgconfig:$(brew --prefix tcl-tk)/lib/pkgconfig" \
    pyenv install 3.14.0 # For macOS users
 
+   zsh # Reload shell to use pyenv
+
    python -m venv .venv
 
    pip install -r requirements.txt
