@@ -10,6 +10,8 @@ class Board:
 
     def eval(self, player):
         # TODO
+        # Nombre d'alignements de 2, 3 pourrait être intéressant à prendre en compte
+        # avec + de reward pour 3 > 2
         return 0
 
     def copy(self):
