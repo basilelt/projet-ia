@@ -9,10 +9,21 @@ def alpha_beta_decision(board, turn, ai_level, queue, max_player):
     queue.put(
         board.get_possible_moves()[rnd.randint(0, len(board.get_possible_moves()) - 1)]
     )
+    # TODO
 
 
 class Connect4:
-    def __init__(self, information, canvas1, combobox_player1, combobox_player2, row_width, window, disks, disk_color):
+    def __init__(
+        self,
+        information,
+        canvas1,
+        combobox_player1,
+        combobox_player2,
+        row_width,
+        window,
+        disks,
+        disk_color,
+    ):
         self.information = information
         self.canvas1 = canvas1
         self.combobox_player1 = combobox_player1
@@ -40,7 +51,10 @@ class Connect4:
             + " is playing"
         )
         self.human_turn = False
-        self.players = (self.combobox_player1.current(), self.combobox_player2.current())
+        self.players = (
+            self.combobox_player1.current(),
+            self.combobox_player2.current(),
+        )
         self.handle_turn()
 
     def move(self, column):
@@ -76,7 +90,9 @@ class Connect4:
         self.human_turn = False
         if self.board.check_victory():
             self.information["fg"] = "red"
-            self.information["text"] = "Player " + str(self.current_player()) + " wins !"
+            self.information["text"] = (
+                "Player " + str(self.current_player()) + " wins !"
+            )
             return
         elif self.turn >= 42:
             self.information["fg"] = "red"

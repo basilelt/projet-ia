@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Board:
     def __init__(self, canvas, disks, disk_color):
         self.canvas = canvas
@@ -8,6 +9,7 @@ class Board:
         self.grid = np.zeros((7, 6), dtype=int)
 
     def eval(self, player):
+        # TODO
         return 0
 
     def copy(self):
